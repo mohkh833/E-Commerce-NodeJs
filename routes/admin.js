@@ -18,18 +18,14 @@ router.get('/products',  isAuth ,adminController.getProducts);
 // // /admin/add-product => POST
 router.post('/add-product',
 [
-body('title')
-.isString()
-.isLength({min: 3})
-.trim(),
-body('imageUrl')
-.isURL(),
-body('price')
-.isFloat()
-,
-body('description')
-.isLength({min: 8, max: 400})
-.trim(),
+    body('title')
+    .isString()
+    .isLength({ min: 3 })
+    .trim(),
+    body('price').isFloat(),
+    body('description')
+    .isLength({ min: 5, max: 400 })
+    .trim()
 ],
 isAuth , adminController.postAddProduct);
 
@@ -41,8 +37,6 @@ router.post('/edit-product',isAuth,
     .isString()
     .isLength({min: 3})
     .trim(),
-    body('imageUrl')
-    .isURL(),
     body('price')
     .isFloat()
     ,
@@ -52,6 +46,6 @@ router.post('/edit-product',isAuth,
     ]
 , adminController.postEditProduct);
 
-router.post('/delete-product',isAuth , adminController.postDeleteProduct);
+router.delete('/product/:productId',isAuth , adminController.deleteProduct);
 
 module.exports = router;
